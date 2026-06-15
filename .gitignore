@@ -17,6 +17,9 @@ data/dlvr_raw*.csv
 data/last_update.json
 data/daily.lock
 
+# 운영 접속정보(공개 repo 노출 금지)
+ops/nas.env
+
 # 런타임 산출물
 *.log
 .DS_Store
