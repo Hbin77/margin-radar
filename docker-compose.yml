@@ -16,8 +16,10 @@ services:
       # 로컬에만 노출 — 외부 접근은 Cloudflare 터널 경유
       - "127.0.0.1:8910:80"
     volumes:
-      # data.json은 매일 갱신되는 파일이므로 이미지 재빌드 없이 호스트 파일을 마운트
-      - ./web/data.json:/usr/share/nginx/html/data.json:ro
+      # 라이브 data.json은 git 외부 경로에서 마운트 → 배포 시 git reset이 덮어쓰지 않음.
+      # NAS 파이프라인 산출물을 ops/sync_from_nas.sh 가 매일 이 경로로 갱신.
+      # (기본값은 kis-bot 경로. 이미지엔 web/data.json 시드가 포함돼 콜드스타트도 안전)
+      - ${MR_DATA_FILE:-/home/hbin/mr-shared/data.json}:/usr/share/nginx/html/data.json:ro
 
   pipeline:
     build:

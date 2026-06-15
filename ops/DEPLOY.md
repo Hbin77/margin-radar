@@ -20,7 +20,7 @@
        매일: 수집 → score_v2 → ML → build_web_data → web/data.json
                                    │ (kis-bot cron이 pull)
                                    ▼
-            [kis-bot] ~/apps/margin-radar/web/data.json  (nginx 바인드마운트)
+            [kis-bot] /home/hbin/mr-shared/data.json  (nginx 바인드마운트, git 외부)
 ```
 
 - **웹 서빙**: kis-bot. 빅데이터 없음(저장공간 절약). nginx 컨테이너가 정적 SPA + data.json 서빙.
@@ -32,7 +32,7 @@
 
 | 컨테이너 | 역할 | 비고 |
 |---|---|---|
-| `mr-web` | nginx 정적 서빙 | `127.0.0.1:8910:80`, data.json 바인드마운트 |
+| `mr-web` | nginx 정적 서빙 | `127.0.0.1:8910:80`, `/home/hbin/mr-shared/data.json` 마운트(git 외부) |
 | `mr-cloudflared` | Cloudflare 터널 `mr` | `--network host --user 0:0`, `~/.cloudflared/mr-config.yml` |
 | `mr-gha-runner` | GitHub Actions 러너 | docker.sock + `/home/hbin/apps/margin-radar` 마운트 |
 
