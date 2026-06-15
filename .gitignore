@@ -24,3 +24,6 @@ ops/nas.env
 *.log
 .DS_Store
 docs/ml_feature_importance.png
+
+# QA 임시 스크립트
+web-next/qa-*.js
