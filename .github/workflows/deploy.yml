@@ -18,16 +18,19 @@ concurrency:
 jobs:
   deploy:
     runs-on: [self-hosted, kis-bot]
+    env:
+      APP_DIR: /home/hbin/apps/margin-radar
     steps:
       - name: Sync deploy dir to latest main
         run: |
-          cd ~/apps/margin-radar
+          git config --global --add safe.directory "$APP_DIR"
+          cd "$APP_DIR"
           git fetch --all --prune
           git reset --hard origin/main
 
       - name: Build & (re)start web container
         run: |
-          cd ~/apps/margin-radar
+          cd "$APP_DIR"
           docker compose build web
           docker compose up -d web
 
