@@ -11,10 +11,13 @@
 set -euo pipefail
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# 배포 디렉토리는 CI 러너(root)가 관리하므로, 런타임 상태(nas.env·로그)는
+# hbin 소유의 외부 경로에 둔다. cron에서 NAS_ENV / LOG_FILE 로 지정.
+NAS_ENV="${NAS_ENV:-$DIR/nas.env}"
 # shellcheck disable=SC1091
-source "$DIR/nas.env"
+source "$NAS_ENV"
 
-LOG="${APP_DIR}/sync.log"
+LOG="${LOG_FILE:-$DIR/sync.log}"
 log() { echo "[$(date '+%F %T')] $*" | tee -a "$LOG"; }
 
 ssh_nas() {

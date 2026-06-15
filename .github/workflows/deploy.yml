@@ -37,5 +37,6 @@ jobs:
       - name: Health check
         run: |
           sleep 4
-          curl -fsS http://127.0.0.1:8910/ >/dev/null && echo "web up on :8910"
-          curl -fsS http://127.0.0.1:8910/data.json >/dev/null && echo "data.json served"
+          # 러너는 컨테이너라 호스트 포트(127.0.0.1:8910)가 안 보임 → 웹 컨테이너 내부에서 점검
+          docker exec mr-web wget -qO- http://127.0.0.1/ >/dev/null && echo "web up (nginx)"
+          docker exec mr-web wget -qO- http://127.0.0.1/data.json >/dev/null && echo "data.json served"
