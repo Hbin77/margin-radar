@@ -36,7 +36,9 @@ ssh_nas "cat '$NAS_DIR/web/data.json'" > "$TMP"
 
 if python3 -c "import json,sys; json.load(open('$TMP'))" 2>/dev/null \
    && [ "$(stat -c%s "$TMP")" -gt 100000 ]; then
-  mv "$TMP" "$DATA_FILE"
+  # in-place 덮어쓰기(같은 inode 유지). Docker 단일파일 바인드마운트는 mv로 교체하면
+  # 새 inode가 생겨 컨테이너가 갱신을 못 보므로 cp로 내용만 교체한다.
+  cp "$TMP" "$DATA_FILE" && rm -f "$TMP"
   log "동기화 완료 ($(stat -c%s "$DATA_FILE") bytes)"
 else
   rm -f "$TMP"
