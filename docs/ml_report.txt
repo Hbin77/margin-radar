@@ -1,0 +1,25 @@
+MR 가격예측 앙상블 — 성능 리포트
+학습 150,000 / 평가 89,523
+베이스라인 MAE 7,345,556원
+HistGBM      R²=0.941 MAE=2,589,436 MAPE=24.7%
+RandomForest R²=0.948 MAE=2,126,685 MAPE=20.7%
+앙상블       R²=0.948 MAE=2,175,666 MAPE=21.2%
+
+피처 중요도 TOP12:
+  dtilPrdctClsfcNo       1.0922
+  vol                    0.0895
+  max_num                0.0763
+  prdctMakrNm            0.0609
+  dim_d                  0.0310
+  dim_w                  0.0287
+  watt                   0.0273
+  dim_h                  0.0204
+  prdctUnit              0.0188
+  sebu_freq              0.0179
+  spec_len               0.0175
+  cls6                   0.0090
+
+군집 분포:
+  블루오션 후보: 135개
+  진입제한 시장: 100개
+  관망 시장: 21개

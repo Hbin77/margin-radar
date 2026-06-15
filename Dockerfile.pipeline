@@ -1,0 +1,15 @@
+# 데이터 파이프라인 (abcd NAS에서 실행, 빅데이터는 볼륨 마운트)
+FROM python:3.12-slim
+
+# sklearn/scipy 휠 설치용 빌드 의존성 (대부분 휠로 해결되나 안전망)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY requirements.txt /tmp/requirements.txt
+RUN pip install --no-cache-dir -r /tmp/requirements.txt
+
+# 코드/데이터는 런타임에 프로젝트 홈을 /app 으로 마운트
+WORKDIR /app/pipeline
+
+CMD ["python", "daily_update.py"]

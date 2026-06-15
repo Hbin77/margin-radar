@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MR · 조달 마진 레이더</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <span class="logo">MR</span>
+    <div>
+      <div class="brand-name">Margin Radar</div>
+      <div class="brand-sub">공공조달 블루오션·마진 발굴 엔진</div>
+    </div>
+  </div>
+  <nav class="tabs">
+    <button class="tab active" data-view="ranking"><i data-lucide="radar"></i> 블루오션 랭킹</button>
+    <button class="tab" data-view="lookup"><i data-lucide="search"></i> 내 제품 역조회</button>
+  </nav>
+</header>
+
+<main id="app"><div class="loading">데이터 로딩 중…</div></main>
+
+<footer class="foot">
+  <span id="disclaimer"></span>
+  <span class="src">출처: 조달청 종합쇼핑몰 품목정보 API · 네이버 쇼핑 · MR 분석</span>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

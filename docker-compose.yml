@@ -1,0 +1,35 @@
+# MR 배포 구성
+#  - web      : kis-bot에서 실행 (Cloudflare 터널 → mr.hbinserver.cloud)
+#               docker compose up -d web
+#  - pipeline : abcd NAS에서 실행 (빅데이터 마운트, data.json 생성)
+#               docker compose --profile pipeline run --rm pipeline
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    image: margin-radar-web
+    container_name: mr-web
+    restart: unless-stopped
+    ports:
+      # 로컬에만 노출 — 외부 접근은 Cloudflare 터널 경유
+      - "127.0.0.1:8910:80"
+    volumes:
+      # data.json은 매일 갱신되는 파일이므로 이미지 재빌드 없이 호스트 파일을 마운트
+      - ./web/data.json:/usr/share/nginx/html/data.json:ro
+
+  pipeline:
+    build:
+      context: .
+      dockerfile: Dockerfile.pipeline
+    image: margin-radar-pipeline
+    container_name: mr-pipeline
+    profiles: ["pipeline"]
+    env_file:
+      - .env
+    volumes:
+      # NAS 프로젝트 홈 전체 마운트(빅데이터 data/ 포함)
+      - .:/app
+    working_dir: /app/pipeline
+    command: python daily_update.py

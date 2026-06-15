@@ -1,0 +1,23 @@
+# 비밀정보 (절대 커밋 금지)
+.env
+*.env
+!.env.example
+
+# 가상환경 / 캐시
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# 대용량 생성 데이터 (NAS = 데이터 스토리지 서버에 보관)
+data/products.csv
+data/mas_*.csv
+data/*_raw*.csv
+data/dlvr_raw*.csv
+data/last_update.json
+data/daily.lock
+
+# 런타임 산출물
+*.log
+.DS_Store
+docs/ml_feature_importance.png

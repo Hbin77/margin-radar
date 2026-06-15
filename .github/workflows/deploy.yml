@@ -1,0 +1,38 @@
+name: Deploy MR web to kis-bot
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'web/**'
+      - 'nginx.conf'
+      - 'Dockerfile.web'
+      - 'docker-compose.yml'
+      - '.github/workflows/deploy.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-kis-bot
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: [self-hosted, kis-bot]
+    steps:
+      - name: Sync deploy dir to latest main
+        run: |
+          cd ~/apps/margin-radar
+          git fetch --all --prune
+          git reset --hard origin/main
+
+      - name: Build & (re)start web container
+        run: |
+          cd ~/apps/margin-radar
+          docker compose build web
+          docker compose up -d web
+
+      - name: Health check
+        run: |
+          sleep 4
+          curl -fsS http://127.0.0.1:8910/ >/dev/null && echo "web up on :8910"
+          curl -fsS http://127.0.0.1:8910/data.json >/dev/null && echo "data.json served"

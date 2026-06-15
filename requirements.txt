@@ -1,0 +1,7 @@
+# 파이프라인(수집·스코어링·ML) 의존성 — abcd NAS Docker에서 실행
+pandas>=2.2,<4
+numpy>=2.0,<3
+scikit-learn>=1.6
+scipy>=1.13
+matplotlib>=3.9
+requests>=2.31

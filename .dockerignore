@@ -1,0 +1,13 @@
+.git
+.github
+.venv
+__pycache__
+*.pyc
+.DS_Store
+# 빅데이터는 이미지에 넣지 않음(웹 이미지엔 web/만 필요, 파이프라인은 런타임 마운트)
+data/products.csv
+data/mas_*.csv
+data/*_raw*.csv
+docs
+design-system
+*.md
