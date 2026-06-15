@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+/* ── 에디토리얼 디자인 토큰 (크림 + 네이비, 글로우/그라데이션 없음) ── */
+@theme {
+  --color-paper: #F1EEE5;        /* 페이지 배경(웜 크림) */
+  --color-surface: #FFFFFF;
+  --color-surface-warm: #FAF9F4;
+  --color-line: #E6E1D5;         /* 웜 라인 */
+  --color-line-soft: #EFEBE0;
+
+  --color-ink: #0D1321;          /* 본문 */
+  --color-ink-2: #475569;
+  --color-muted: #586273;        /* 크림 위 WCAG AA 4.5:1 확보 */
+  --color-faint: #6B7585;
+
+  --color-brand: #3E5C76;        /* 스틸(주 액션) */
+  --color-brand-hover: #2C4257;
+  --color-brand-soft: #EEF2F6;
+  --color-navy: #1D2D44;
+  --color-cream: #F0EBD8;
+
+  --color-success: #15803D;
+  --color-success-soft: #E7F1E9;
+  --color-warning: #B45309;
+  --color-warning-soft: #FAF1E2;
+  --color-danger: #B91C1C;
+  --color-danger-soft: #FAEEEC;
+  --color-info: #0E7490;
+  --color-info-soft: #ECFBFD;
+
+  --radius-card: 12px;
+
+  --font-sans: 'Pretendard', system-ui, -apple-system, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace;
+}
+
+@layer base {
+  html { -webkit-font-smoothing: antialiased; }
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-feature-settings: "tnum" 1;
+  }
+  /* 숫자는 모노로 — 데이터 제품의 정렬감 */
+  .tnum { font-family: var(--font-mono); font-feature-settings: "tnum" 1; }
+  ::selection { background: #1D2D4422; }
+}
+
+/* 가는 스크롤바 */
+* { scrollbar-width: thin; scrollbar-color: var(--color-line) transparent; }

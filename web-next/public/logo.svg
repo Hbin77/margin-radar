@@ -1,0 +1,10 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="MR Margin Radar">
+  <rect width="32" height="32" rx="8" fill="#1D2D44"/>
+  <g stroke="#F0EBD8" fill="none" stroke-linecap="round">
+    <circle cx="16" cy="16" r="10.5" stroke-width="1.3" opacity=".38"/>
+    <circle cx="16" cy="16" r="6.4" stroke-width="1.3" opacity=".62"/>
+    <line x1="16" y1="16" x2="24.4" y2="8.6" stroke-width="1.7"/>
+  </g>
+  <circle cx="16" cy="16" r="1.7" fill="#F0EBD8"/>
+  <circle cx="22.7" cy="10.6" r="2" fill="#F0EBD8"/>
+</svg>
