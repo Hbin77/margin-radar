@@ -24,7 +24,7 @@ from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler, TargetEncoder
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split, cross_val_predict
 from sklearn.metrics import mean_absolute_error, r2_score
 from sklearn.inspection import permutation_importance
 
@@ -90,7 +90,10 @@ def main():
     m_ens = metrics(ens, "앙상블")
 
     # === 전체 예측 → 잔차(과지출) ===
-    df["pred_log"] = ens.predict(Xdf)
+    # in-sample 예측은 학습행 잔차가 낙관적 → out-of-fold(cross_val_predict)로 누수 없는 잔차 산출.
+    # HGB 파이프라인(TargetEncoder 포함)을 폴드별로 새로 적합 → 각 행은 자신이 학습에 안 쓰인 예측.
+    log("과지출 신호용 out-of-fold 예측(누수 없는 잔차)…")
+    df["pred_log"] = cross_val_predict(hgb, Xdf, y, cv=3, n_jobs=-1)
     df["pred_price"] = np.expm1(df["pred_log"])
     df["resid"] = df["y"] - df["pred_log"]          # +면 예측보다 비쌈(과지출 의심)
 
